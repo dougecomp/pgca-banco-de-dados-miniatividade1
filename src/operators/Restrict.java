@@ -10,7 +10,7 @@ public class Restrict implements Iterable<Row>{
     private String attribute;
     private Comparison comparisonOp;
     private Comparable value;
-    private Row nextRow;
+    private Row nextRow; // Atributo para armazenar a próxima linha que deve ser retornada
     
     public Restrict(Iterable source, Comparison comparisonOp, String attribute, Comparable value) {
         
@@ -38,9 +38,9 @@ public class Restrict implements Iterable<Row>{
                
                 //Registro da tabela original
                 Row originalRow = tableIterator.next();
-                if(nextRow == null) {  
+                if(nextRow == null) { // se nextRow ainda é nulo então deve-se buscar duas linhas. Retornando a primeira e guardando a próxima nessa variável
                     
-                    while (!comparisonOp.compare(originalRow.getValue(attribute), value)) {
+                    while (!comparisonOp.compare(originalRow.getValue(attribute), value)) { // Quando sair desse loop, achou a condição do restrict
 
                         originalRow = tableIterator.next();
 
@@ -56,7 +56,9 @@ public class Restrict implements Iterable<Row>{
                     for (int i = 0; i < columns.length; i++) {
                         newRow.setValue(i, originalRow.getValue(columns[i]));
                     }
+                    // Aqui newRow contém a linha que deve ser retornada
                     
+                    // Aqui começa o processo para buscar a segunda linha.
                     originalRow = tableIterator.next();
                     while (!comparisonOp.compare(originalRow.getValue(attribute), value) && tableIterator.hasNext()) {
 
@@ -73,11 +75,12 @@ public class Restrict implements Iterable<Row>{
                     //Copiando todos os valores de todos os campos dessa linha
                     for (int i = 0; i < columns.length; i++) {
                         nextRow.setValue(i, originalRow.getValue(columns[i]));
-                    }
+                    } // Armazena o resultado da próxima linha
                     
-                    return newRow;
+                    return newRow; // Retorna a primeira linha já encontrada antes
                     
-                } else {
+                } else { // Se nextRow não for nulo, então buscar somente uma próxima linha
+                    
                     Row newRow = nextRow;
                     
                     originalRow = tableIterator.next();
@@ -96,8 +99,10 @@ public class Restrict implements Iterable<Row>{
                     //Copiando todos os valores de todos os campos dessa linha
                     for (int i = 0; i < columns.length; i++) {
                         nextRow.setValue(i, originalRow.getValue(columns[i]));
-                    }
-                    return newRow;
+                    } // Guarda a próxima linha
+                    
+                    // Retorna a que estava guardada antes
+                    return newRow; 
                 }
                 
                 /*Row newRow = null;
