@@ -31,18 +31,18 @@ public class Diference implements Iterable<Row>{
         public MyIterator() {
             tableIterator1 = tabela1.iterator();
             tableIterator2 = tabela2.iterator();
-            nextRow = getNextRow();
+            nextRow = getNextRow(); // Armazenando a próxima linha
         }
         
         @Override
         public boolean hasNext() {
-            return nextRow != null;
+            return nextRow != null; // Se não houver próxima linha então não existe mais resultados
         }
 
         @Override
         public Row next() {
            Row temp = nextRow;
-           nextRow = getNextRow();
+           nextRow = getNextRow(); // Captura a próxima linha e retorna a requisitada
            return temp;
         }
         
@@ -58,18 +58,18 @@ public class Diference implements Iterable<Row>{
                     rowTable2 = tableIterator2.next();
                     Boolean diferentes = false;
                     for (String attribute : rowTable1.getAttributes()) {
-                        // Se existe alguma coluna com valo
+                        // Verifica se alguma coluna de uma linha é diferente da outra
                         if( !rowTable1.getValue(attribute).equals(rowTable2.getValue(attribute) )) {
                             diferentes = true;
                             break;
                         }
                     }
-                    if(diferentes) {
+                    if(diferentes) { // Caso exista alguma coluna com valor diferente, retorna ela
                         return rowTable1;
                     }
                     
                 }
-                tableIterator2 = tabela2.iterator();
+                tableIterator2 = tabela2.iterator(); // Reinicia o iterator para que o próximo rowTable1 possa percorrer todos os rowTable2 do tableIterator2
             }
         
             return null;
