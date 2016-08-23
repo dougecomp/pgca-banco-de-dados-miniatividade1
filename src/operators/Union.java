@@ -40,10 +40,6 @@ public class Union implements Iterable<Row>{
             else
                 return tableIterator2;
         }
-
-        
-    
-        
     
     }
 }
