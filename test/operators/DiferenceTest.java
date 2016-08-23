@@ -19,16 +19,16 @@ public class DiferenceTest {
         sailors1.insert(22, "Dustin", 7, 45);
         sailors1.insert(29, "Brutus", 1, 33);
         sailors1.insert(31, "Lubber", 8, 55);
-        sailors2.insert(71, "Zorba", 10, 16);
-        sailors2.insert(74, "Horatio", 9, 35);
-        sailors2.insert(85, "Art", 3, 25);
-        sailors2.insert(95, "Bob", 3, 63);                
+        sailors1.insert(71, "Zorba", 10, 16);
+        sailors1.insert(74, "Horatio", 9, 35);
+        sailors1.insert(85, "Art", 3, 25);
+        sailors1.insert(95, "Bob", 3, 63);                
         
         sailors2 = new Table(sailorsAtts);
         sailors2.insert(32, "Andy", 8, 25);
         sailors2.insert(58, "Rusty", 10, 35);
         sailors2.insert(64, "Horatio", 7, 35);                
-        sailors1.insert(22, "Dustin", 7, 45);
+        sailors2.insert(22, "Dustin", 7, 45);
     }
     
     @Test
